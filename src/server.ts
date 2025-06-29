@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { importCharacters } from "./scripts/importCharacters";
 
 const prisma = new PrismaClient()
-importCharacters
+// importCharacters
 const port = process.env.PORT 
 
 app.listen(port, ()=> {

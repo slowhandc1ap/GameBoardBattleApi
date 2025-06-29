@@ -8,6 +8,7 @@ import paymentRoutes from './routes/payment.routes'
 import gachaRoutes from './routes/gacha/gacha.routes'
 import heroRoutes from './routes/ingame/hero.routes'
 import createTeamRoutes from './routes/ingame/team.routes'
+import battleRoutes from './routes/ingame/battle/battle.routes'
 dotenv.config();
 
 const app = express()
@@ -26,6 +27,7 @@ app.use('/payment', paymentRoutes)
 app.use('/gacha', gachaRoutes)
 app.use('/api', heroRoutes)
 app.use('/api/team', createTeamRoutes)
+app.use('/api/battle', battleRoutes)
 
 app.get("/", (_, res)=> {
     res.send("Welcome to Gacha Battle API")
