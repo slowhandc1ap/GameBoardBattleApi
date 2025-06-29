@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  password       String
+  username       String
+  coin           Int             @default(0)
+  freeGachaUse   Int             @default(3)
+  userCharacters UserCharacter[]
+  team           Team[]
+  orders         Order[]
+  createAt       DateTime        @default(now())
+  leaderboard    Leaderboard?
+}
+
+model Character {
+  id             String          @id @default(uuid())
+  name           String
+  job            String
+  rarity         Int
+  hp             Int
+  atk            Int
+  def            Int
+  speed          Int
+  element        String
+  imageUrl       String
+  userCharacters UserCharacter[]
+  createAt       DateTime        @default(now())
+}
+
+model UserCharacter {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+
+  nickname String?
+
+  teamMembers TeamMember[]
+  createAt    DateTime     @default(now())
+}
+
+model Team {
+  id               String            @id @default(uuid())
+  name             String
+  user             User              @relation(fields: [userId], references: [id])
+  userId           String
+  isDefenseTeam    Boolean           @default(false)
+  teamMembers      TeamMember[]
+  defenseFormation DefenseFormation? @relation("TeamDefenseRelation") // 👈 แค่ชื่อนี้พอ
+
+  createAt DateTime @default(now())
+
+  attackerHistory BattleHistory[] @relation("AttackerBattleRelation")
+  defenderHistory BattleHistory[] @relation("DefenderBattleRelation")
+  winnerHistory   BattleHistory[] @relation("WinnerBattleRelation")
+}
+
+model DefenseFormation {
+  id           String   @id @default(uuid())
+  teamId       String   @unique
+  team         Team     @relation("TeamDefenseRelation", fields: [teamId], references: [id], onDelete: Cascade) // 👈 กำหนด fields/references ฝั่งเดียวพอ
+  attackOrder  String
+  defenseOrder String
+  createdAt    DateTime @default(now())
+}
+
+model TeamMember {
+  id              String        @id @default(uuid())
+  team            Team          @relation(fields: [teamId], references: [id])
+  teamId          String
+  userCharacter   UserCharacter @relation(fields: [userCharacterId], references: [id])
+  userCharacterId String
+  slot            Int
+}
+
+model Order {
+  id              String   @id @default(uuid())
+  orderId         String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  userId          String
+  name            String?
+  address         String?
+  amount          Int
+  status          String
+  stripeSessionId String   @unique
+  createdAt       DateTime @default(now())
+}
+
+// In game
+model BattleHistory {
+  id String @id @default(uuid())
+
+  attackerTeamId String
+  attackerTeam   Team   @relation("AttackerBattleRelation", fields: [attackerTeamId], references: [id])
+
+  defenderTeamId String
+  defenderTeam   Team   @relation("DefenderBattleRelation", fields: [defenderTeamId], references: [id])
+
+  winnerTeamId String
+  winnerTeam   Team   @relation("WinnerBattleRelation", fields: [winnerTeamId], references: [id])
+
+  turns     Json // [{ turn: 1, attacker: "...", defender: "...", damage: 50, killed: true }, ...]
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+}
+
+model Leaderboard {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @unique
+  wins       Int      @default(0)
+  losses     Int      @default(0)
+  rankPoints Int      @default(1000)
+  updatedAt  DateTime @default(now()) @updatedAt
+}

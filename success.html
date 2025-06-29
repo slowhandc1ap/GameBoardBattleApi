@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment Success</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; text-align: center; }
+    h1 { color: green; }
+  </style>
+</head>
+<body>
+  <h1>✅ Payment Successful!</h1>
+  <p>ขอบคุณที่ทำรายการจ่ายเงินสำเร็จ</p>
+  <p>กำลังตรวจสอบคำสั่งซื้อของคุณ...</p>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get("id");
+
+    if (orderId) {
+      // เรียกข้อมูลจาก backend มาโชว์รายละเอียด
+      fetch(`http://localhost:3000/payment/order/${orderId}`)
+        .then((res) => res.json())
+        .then((order) => {
+          const p = document.createElement('p');
+          p.innerText = `คุณซื้อสินค้า "${order.name}" มูลค่า ${order.amount} บาท สถานะ: ${order.status}`;
+          document.body.appendChild(p);
+        })
+        .catch((err) => {
+          console.error("Error fetching order", err);
+        });
+    }
+  </script>
+</body>
+</html>

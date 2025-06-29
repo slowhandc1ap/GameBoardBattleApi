@@ -1,0 +1,101 @@
+[
+  {  "name": "เจ้าพ่อวงแหวนดาวเสาร์",
+    "job": "มาเฟียพลังแรงโน้มถ่วง",
+    "rarity": 3,
+    "hp": 94,
+    "atk": 88,
+    "def": 46,
+    "speed": 39,
+    "element": "น้ำ",
+    "imageUrl": "https://i.postimg.cc/6pgsKWW7/image.gif"
+  },
+  {
+    "name": "จ่าโบ้แห่งหน่วยลับต้านวาร์ป",
+    "job": "ผู้บัญชาการหน่วยต่อต้านการวาร์ป",
+    "rarity": 4,
+    "hp": 81,
+    "atk": 78,
+    "def": 66,
+    "speed": 32,
+    "element": "ลม",
+    "imageUrl": "https://i.postimg.cc/MpR5cq0f/image.gif"
+  },
+  {
+    "name": "ลุงหัวหลอดแห่งดาวเบี้ยว",
+    "job": "นักประดิษฐ์สายหลอดทดลอง",
+    "rarity": 2,
+    "hp": 126,
+    "atk": 39,
+    "def": 52,
+    "speed": 84,
+    "element": "แสง",
+    "imageUrl": "https://i.postimg.cc/cH1pWXgH/image.gif"
+  },
+  {
+    "name": "แพะผู้ครองเนบิวลา",
+    "job": "หมอดูจักรวาลผู้ลึกลับ",
+    "rarity": 4,
+    "hp": 113,
+    "atk": 72,
+    "def": 50,
+    "speed": 33,
+    "element": "ลม",
+    "imageUrl": "https://i.postimg.cc/SRQ24FqP/image.gif"
+  },
+  {
+    "name": "สายสืบแห่งนิวโทเปีย",
+    "job": "นักสอดแนมอินเตอร์ดวงดาว",
+    "rarity": 4,
+    "hp": 93,
+    "atk": 75,
+    "def": 45,
+    "speed": 54,
+    "element": "มืด",
+    "imageUrl": "https://i.postimg.cc/dQWDCfJq/image.gif"
+  },
+  {
+    "name": "นักบินมือใหม่จากดาวนาโน",
+    "job": "นักบินฝึกหัดสายสำรวจ",
+    "rarity": 3,
+    "hp": 104,
+    "atk": 68,
+    "def": 49,
+    "speed": 82,
+    "element": "ไฟ",
+    "imageUrl": "https://i.postimg.cc/J7B4yzYQ/image.gif"
+  },
+  {
+    "name": "หุ่นยนต์เต้นระบำ",
+    "job": "แดนเซอร์ระบบดาว",
+    "rarity": 4,
+    "hp": 98,
+    "atk": 74,
+    "def": 35,
+    "speed": 89,
+    "element": "ดิน",
+    "imageUrl": "https://i.postimg.cc/6ppkvH5N/image.gif"
+  },
+  {
+    "name": "บาบูนพลังจิตจากหลุมดำ",
+    "job": "ผู้ควบคุมจิตอวกาศ",
+    "rarity": 2,
+    "hp": 91,
+    "atk": 81,
+    "def": 33,
+    "speed": 77,
+    "element": "มืด",
+    "imageUrl": "https://i.postimg.cc/WbXKTMmY/image.gif"
+  },
+  {
+    "name": "ปูจรวดสายฟ้า",
+    "job": "นักทะลวงพลังงานสูง",
+    "rarity": 5,
+    "hp": 120,
+    "atk": 59,
+    "def": 64,
+    "speed": 90,
+    "element": "แสง",
+    "imageUrl": "https://i.postimg.cc/zXXttymC/image.gif"
+  }
+]
+
