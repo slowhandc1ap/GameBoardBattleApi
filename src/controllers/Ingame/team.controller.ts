@@ -84,29 +84,28 @@ export const updateTeamName = async (req: Request, res: Response) => {
 
 export const upsertFormation = async (req: Request, res: Response) => {
   try {
-    const { teamId, attackOrder, defenseOrder } = req.body;
+    const { teamId, attackOrder, defenseOrder, userId } = req.body;
 
-    if (!teamId || !attackOrder || !defenseOrder) {
-       res.status(400).json({ success: false, message: 'ข้อมูลไม่ครบ' });
-       return
+    // ตรวจสอบ input เบื้องต้น
+    if (!userId || !teamId || !attackOrder || !defenseOrder) {
+      return res.status(400).json({ success: false, message: 'ข้อมูลไม่ครบ' });
     }
 
-    // ตรวจสอบว่าลำดับต้องเป็น array และความยาวเท่ากับสมาชิกทีม (เช่น 3 ตัว)
     if (
       !Array.isArray(attackOrder) ||
       !Array.isArray(defenseOrder) ||
       attackOrder.length !== defenseOrder.length
     ) {
-       res.status(400).json({ success: false, message: 'ข้อมูลลำดับไม่ถูกต้อง' });
-       return
+      return res.status(400).json({ success: false, message: 'ข้อมูลลำดับไม่ถูกต้อง' });
     }
 
-    const result = await setDefenseFormation(teamId, attackOrder, defenseOrder);
+    // เรียก Service (แยก logic ออกไป)
+    const result = await setDefenseFormation(userId, teamId, attackOrder, defenseOrder);
 
-    res.json({ success: true, data: result });
+    return res.json({ success: true, data: result });
   } catch (error) {
     console.error('upsertFormation error', error);
-    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในระบบ' });
+    return res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในระบบ' });
   }
 };
 

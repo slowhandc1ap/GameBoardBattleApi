@@ -9,6 +9,8 @@ import gachaRoutes from './routes/gacha/gacha.routes'
 import heroRoutes from './routes/ingame/hero.routes'
 import createTeamRoutes from './routes/ingame/team.routes'
 import battleRoutes from './routes/ingame/battle/battle.routes'
+import battleHistoryRoutes from './routes/ingame/history/battleHistory.routes'
+import leaderboardRoutes from './routes/ingame/leaderboard/leaderboard.routes'
 dotenv.config();
 
 const app = express()
@@ -28,6 +30,8 @@ app.use('/gacha', gachaRoutes)
 app.use('/api', heroRoutes)
 app.use('/api/team', createTeamRoutes)
 app.use('/api/battle', battleRoutes)
+app.use('/api/battle/history', battleHistoryRoutes)
+app.use('/api/leaderboard', leaderboardRoutes)
 
 app.get("/", (_, res)=> {
     res.send("Welcome to Gacha Battle API")

@@ -102,14 +102,14 @@ model Order {
 model BattleHistory {
   id String @id @default(uuid())
 
-  attackerTeamId String
-  attackerTeam   Team   @relation("AttackerBattleRelation", fields: [attackerTeamId], references: [id])
+ attackerTeamId String
+  attackerTeam   Team @relation("AttackerBattleRelation", fields: [attackerTeamId], references: [id], onDelete: Cascade)
 
   defenderTeamId String
-  defenderTeam   Team   @relation("DefenderBattleRelation", fields: [defenderTeamId], references: [id])
+  defenderTeam   Team @relation("DefenderBattleRelation", fields: [defenderTeamId], references: [id], onDelete: Cascade)
 
   winnerTeamId String
-  winnerTeam   Team   @relation("WinnerBattleRelation", fields: [winnerTeamId], references: [id])
+  winnerTeam   Team @relation("WinnerBattleRelation", fields: [winnerTeamId], references: [id], onDelete: Cascade)
 
   turns     Json // [{ turn: 1, attacker: "...", defender: "...", damage: 50, killed: true }, ...]
   startedAt DateTime  @default(now())

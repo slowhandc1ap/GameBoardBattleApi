@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
+
 const prisma = new PrismaClient();
 
 export const createTeamService = async (userId: string, teamName: string, heroIds: string[]) => {
@@ -105,28 +106,32 @@ export const updateTeamNameService = async (teamId: string, newName: string) => 
   });
 };
 
-
 export const setDefenseFormation = async (
+  userId: string,
   teamId: string,
-  attackOrder: number[],
-  defenseOrder: number[]
+  attackOrder: string[],
+  defenseOrder: string[]
 ) => {
-  const attackStr = attackOrder.join(',');
-  const defenseStr = defenseOrder.join(',');
+  console.log(`Setting defense formation for team ${teamId} \n with attack order ${attackOrder} \n and defense order ${defenseOrder}`);
 
-  // 1. ลบ formation เก่าทั้งหมดก่อน
-  await prisma.defenseFormation.deleteMany({});
+  // 1. ลบ defenseFormation ของทุก team ที่เป็นของ user นี้เท่านั้น
+  await prisma.defenseFormation.deleteMany({
+    where: {
+      team: {
+        userId: userId, // 🛡️ ป้องกันการลบของ user อื่น
+      },
+    },
+  });
 
-  // 2. สร้างอันใหม่
+  // 2. บันทึก formation ใหม่ของ team นี้
   return await prisma.defenseFormation.create({
     data: {
       teamId,
-      attackOrder: attackStr,
-      defenseOrder: defenseStr,
+      attackOrder: attackOrder.join(','),
+      defenseOrder: defenseOrder.join(','),
     },
   });
 };
-
 
 export const getDefenseFormationByTeamId = async (teamId: string) => {
   return await prisma.defenseFormation.findUnique({

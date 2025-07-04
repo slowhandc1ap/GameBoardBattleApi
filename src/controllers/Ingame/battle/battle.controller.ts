@@ -3,8 +3,8 @@ import * as BattleService from "../../../services/inGame/battle/battle.service"
 
 export const handleStartBattle = async (req: Request, res: Response) => {
     try {
-        const { attackerTeamId, attackerOrder } = req.body;
-        const result = await BattleService.startBattle(attackerTeamId, attackerOrder);
+        const { attackerTeamId, attackerAttackOrder ,attackerDefenseOrder } = req.body;
+        const result = await BattleService.startBattle(attackerTeamId, attackerAttackOrder ,attackerDefenseOrder);
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({
@@ -13,3 +13,17 @@ export const handleStartBattle = async (req: Request, res: Response) => {
         });
     }
 }
+
+
+export const getBattleDetail = async (req: Request, res: Response) => {
+  try {
+    const battleId = req.params.id;
+    const result = await BattleService.getBattleDetail(battleId);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({
+      message: "ดึงข้อมูลการต่อสู้ไม่สำเร็จ",
+      error: err instanceof Error ? err.message : "Unknown error",
+    });
+  }
+};
